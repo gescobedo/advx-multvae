@@ -1,0 +1,89 @@
+# Meta information for description purposes, for now it will not be used
+metadata:
+  method: vae
+  dataset: ml-1m
+
+# The number of epochs we want to train
+epochs: 80
+
+# A list of numbers of recommendations we should retrieve for model validation
+top_k: [ 10, 20, 50 ]
+
+# the metrics to calculate on validation
+metrics: [ "ndcg", "recall", "coverage" ]
+
+# criteria for early stopping, each entry will result in saving an additional model
+early_stopping_criteria: ~
+#    # label for criteria, will be used to name the file
+#    # e.g., for 'utility', the resulting model will be stored as 'best_model_utility.pt'
+#    utility:
+#      # The metric to perform early stopping on, note that it must exist in the
+#      # result dictionary in the code
+#      metric: ndcg
+#      # For rank-based metrics, provide which top_k recommendations to consider
+#      top_k: 10
+#      highest_is_best: true
+#
+#      # For some experiments / models it may be the case that a warmup period is required
+#      # before starting early stopping. 'false' / 0 (or remove) to deactivate. >0 to perform early-stopping
+#    # only after this number of epochs
+#    warmup: false
+
+# whether to store the model after training is complete
+store_last_model: false
+
+logging:
+  log_every_n_batches: 100
+
+# Parameters spefific to the data set and data loader
+data_loader:
+  batch_size: 128
+
+# Parameters specific to the model
+model:
+  activation_fn: relu
+  input_dropout: 0.7
+  decoder_dropout: 0.0
+
+  # The hidden and latent dimensions of the model, the input size will be derived automatically from the dataset
+  dims: [ 20 ]
+
+# Parameters for the VAE specific loss (KL divergence)
+loss:
+  # Choose either a constant beta or ...
+  beta: 0.8
+
+  # ... automatic beta annealing, as described in 'vae for recommendations' paper
+#  beta_cap: 0.5
+#  beta_steps: 2000
+#  beta_patience: 5
+
+# Parameters specific to adversarial training
+adv_groups:
+
+  # the feature we want to perform adversarial training for. required for dynamically selecting features from dataset
+  - feature: "gender"
+
+    # How much we want to scale the adversarial gradient during backpropagation to the main model
+    grad_scaling: 0.1
+
+    # Number of adversaries to be trained in parallel (may improve adversarial training)
+    n_parallel: 1
+
+    # The dimensions of the adversary, where the dimension of the latent space is automatically added
+    dims: [ 10, 2 ]
+    activation_fn: relu
+    input_dropout: 0.0
+
+    # In case the model and adversarial are optimized in simultaneously, this adjusts the weight of the adversarial loss
+    loss_weight: 1
+
+# The optimizer parameters for training the model
+optim:
+  lr: 1e-3
+  weight_decay: 1e-4
+
+# The optimizer parameters for adversarial training
+optim_adv:
+  lr: 1e-4
+  weight_decay: 1e-4

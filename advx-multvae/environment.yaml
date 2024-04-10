@@ -1,0 +1,31 @@
+# install environment with `conda env create -f environment.yml`
+# update environment with `conda env update --name myenv -f environment.yml --prune` (see https://stackoverflow.com/a/43873901)
+name: adv-research
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.9
+  - dill
+  - tqdm
+  - scipy
+  - numpy
+  - pandas
+  - pillow
+  - notebook
+  - matplotlib
+  - ruamel.yaml
+  - scikit-learn=1.2.2 # for compatibility with imbalanced-learn, see https://stackoverflow.com/q/76593906
+  - imbalanced-learn
+  - pytorch::pytorch=2.1 # fix version of pytorch & pytorch-cuda to ensure that GPUs work: https://stackoverflow.com/a/63162492
+  - pytorch::torchvision
+  - pytorch::torchaudio
+  - pytorch-cuda=11.8
+  - tensorboard
+  - ipywidgets
+  - pip
+  - pip:
+      - git+https://github.com/Tigxy/tbparser.git
+      - git+https://github.com/Tigxy/recommender-metrics.git

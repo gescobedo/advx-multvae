@@ -1,0 +1,90 @@
+extends: "0_default.yaml"
+
+# ======================================================================================================================
+# =============================================== FIXED PARAMETER CONFIG ===============================================
+# ======================================================================================================================
+fixed_params:
+
+  # ================================================================================================
+  # ======================================== Overall config ========================================
+  # ================================================================================================
+  epochs: 200
+  top_k: [ 10, 20, 50 ]
+  metrics: [ "ndcg", "recall", "coverage" ]
+  store_last_model: true
+
+  early_stopping_criteria:
+    utility:
+      metric: ndcg
+      top_k: 10
+      highest_is_best: true
+      warmup: false
+
+  data_loader:
+    batch_size: 64
+
+  logging:
+    log_every_n_batches: 100
+
+  # ================================================================================================
+  # ========================================= Model config =========================================
+  # ================================================================================================
+  model:
+    dims: [ 100 ]
+    input_dropout: 0.1
+
+  optim:
+    lr: 1e-3
+    weight_decay: 1e-4
+
+  loss:
+    beta: 0.8
+
+  scheduler:
+    mode: 'min'
+    factor: 0.1
+    patience: 5
+    min_lr: 1e-6
+
+  # ================================================================================================
+  # ====================================== Adversarial config ======================================
+  # ================================================================================================
+  adv_groups:
+    - feature: "gender"
+      group_name: ~         # if None, defaults to value of 'feature', and enumerates the groups if this is not unique
+      type: "categorical"   # either 'continuous' or 'categorical'
+      dims: [ 5, 2 ]
+      activation_fn: "relu"
+      input_dropout: 0.3
+      n_parallel: 10
+      loss_fn: "ce"      # select from ["mse", "ce"]
+      loss_weight: 1
+      loss_class_weights: [0.72, 0.28]
+      grad_scaling: 1
+      scoring_fn: "bacc"  # select from ["bacc"] or remove/set to '~' to not calculate any additional score during validation
+    
+    - feature: "age"
+      group_name: ~         # if None, defaults to value of 'feature', and enumerates the groups if this is not unique
+      type: "continuous"   # either 'continuous' or 'categorical'
+      dims: [ 5, 1 ]
+      activation_fn: "sigmoid"
+      input_dropout: 0.3
+      n_parallel: 10
+      loss_fn: "mse"      # select from ["mse", "ce"]
+      loss_weight: 1
+      grad_scaling: 1
+      scoring_fn: "mae"  # select from ["bacc"] or remove/set to '~' to not calculate any additional score during validation
+
+  # Optimizer config for all adversaries together
+  optim_adv:
+    lr: 1e-3
+    weight_decay: 1e-4
+
+# ======================================================================================================================
+# ================================================ GRID PARAMETER CONFIG ===============================================
+# ======================================================================================================================
+# parameters which should be used for grid search, parameters must be provided as a list
+grid_params:
+  adv_groups[0].grad_scaling: [0, 1, 200, 400, 600, 800]
+  adv_groups[1].grad_scaling: [0, 1, 200, 400, 600, 800]
+

@@ -1,0 +1,33 @@
+#extends: "default.yaml"
+
+fixed_params:
+  epochs: 20
+
+  data_loader:
+    batch_size: 64
+
+  # definition for different attackers that will run independently of each other
+  # Note: Performing grid search on attacker parameters may be inefficient if multiple attackers are
+  #       defined, as they will be repeatedly trained, even if their configurations have not changed.
+  atk_groups:
+    - feature: "gender"   # select which feature to attack
+      type: "categorical"
+      dims: [ 2 ]
+      activation_fn: "relu"
+      input_dropout: 0.3
+      loss_fn: "ce"
+      scoring_fn: "bacc"
+
+    - feature: "gender"
+      type: "categorical"
+      dims: [ 5, 2 ]
+      activation_fn: "relu"
+      input_dropout: 0.3
+      loss_fn: "ce"
+      scoring_fn: "bacc"
+
+  optim:
+    lr: 1e-3
+    weight_decay: 1e-4
+
+grid_params: { }

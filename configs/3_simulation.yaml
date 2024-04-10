@@ -1,0 +1,15 @@
+# Number of recommended items we save to disk, e.g., for computation of additional metrics
+top_k_recommendations_to_store: 50
+
+# Number of items we basically display to the user during simulation, some of these items will be sampled
+top_k_display_for_sampling: 10
+
+# Number of rounds we simulate
+n_simulation_rounds: 30
+
+# After which simulation step to store its results (remember that we store would store quite some data)
+store_simulation_results_every: 1
+
+# Range of number of items users may decide to select / interact with
+user_sample_n_items_min: 1
+user_sample_n_items_max: 1
