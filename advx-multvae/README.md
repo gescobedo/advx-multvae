@@ -2,8 +2,8 @@
 
 # AdvX-MultVAE
 - First create a conda environment from the `requirements.txt` file.
-  -  > conda create --name <envname> --file requirements.txt  
-  - > conda activate <envname>
+  -  > conda env create -f environment.yml 
+  - > conda activate adv-research
  
 - Install the additional dependencies
   - > python -m pip install git+https://github.com/tigxy/recommender-metrics.git
