@@ -6,7 +6,7 @@
   - > conda activate <envname>
  
 - Install the additional dependencies
-  - > python -m pip install git+https://github.com/tigxy recommender-metrics.git
+  - > python -m pip install git+https://github.com/tigxy/recommender-metrics.git
 
 - Install the package
   - > python setup.py develop
