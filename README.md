@@ -3,7 +3,7 @@
 First you should install  advx-multvae in a python environment. Please follow the detailed instructions in the folder `advx-multvae`.
 
 After that the notebooks in `advx-multvae/notebooks/` should be executed to generate the datasets
-they will generate several files. The splitting process for training is done automatically, once the experiments start. Please customize the data urls for saving the resultant files and also include it in the `advx-multvae/data_paths.py` file.
+,this will generate several files. The splitting process for training is done automatically, once the experiments start. Please customize the data urls for saving the resultant files and also include them in the `advx-multvae/data_paths.py` file.
 
 ## Experiment configuration:
 The folder `configs` contains all the configuration of our experiments :
