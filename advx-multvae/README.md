@@ -1,7 +1,7 @@
 
 
 # AdvX-MultVAE
-- First create a conda environment from the `requirements.txt` file.
+- First create a conda environment from the `environment.yml` file.
   -  > conda env create -f environment.yml 
   - > conda activate adv-research
  
