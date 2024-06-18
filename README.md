@@ -1,4 +1,7 @@
-# AdvX-MultVAE
+# AdvX-MultVAE - Simultaneous Unlearning of Multiple Protected User Attributes From Variational Autoencoder Recommenders Using Adversarial Training
+Source code corresponding to the paper:
+> Escobedo, G, Ganhör, C., Brandl, S., Augstein, M., and Schedl, M. Simultaneous Unlearning of Multiple Protected User Attributes From Variational Autoencoder Recommenders Using Adversarial Training, Proceedings of the 5th International Workshop on Algorithmic Bias in Search and Recommendation (BIAS @ SIGIR 2024), Washington D.C., USA, July 2024.
+
 ## Requirements 
 First you should install  advx-multvae in a python environment. Please follow the detailed instructions in the folder `advx-multvae`.
 
